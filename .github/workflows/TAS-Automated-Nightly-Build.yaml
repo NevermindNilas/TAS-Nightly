@@ -57,7 +57,7 @@ jobs:
         id: changelog
         run: |
           $changelog = Get-Content TheAnimeScripter/CHANGELOG.MD -Raw
-          $changelog = $changelog -replace "`r`n","\n"
+          $changelog = $changelog -replace "`r`n","`n"
           $changelog = $changelog -replace '"','\"'
           echo "content=$changelog" >> $env:GITHUB_OUTPUT
         shell: pwsh
@@ -72,11 +72,10 @@ jobs:
             This is a nightly build of TheAnimeScripter. It may contain bugs and is not recommended for production use.
 
             Current CHANGELOG:
-            ```
+
             ${{ steps.changelog.outputs.content }}
-            ```
           draft: false
-          prerelease: true
+          prerelease: false
           files: TAS_${{ steps.date.outputs.date }}.7z
 
       - name: Delete old releases
