@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout TAS-Nightly repository
@@ -62,12 +64,10 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: TAS_${{ steps.date.outputs.date }}
-          release_name: TAS_${{ steps.date.outputs.date }}
+          name: TAS_${{ steps.date.outputs.date }}
           body: |
             This is a nightly build of TheAnimeScripter. It may contain bugs and is not recommended for production use.
 
@@ -77,17 +77,7 @@ jobs:
             ```
           draft: false
           prerelease: true
-
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: TAS_${{ steps.date.outputs.date }}.7z
-          asset_name: TAS_${{ steps.date.outputs.date }}.7z
-          asset_content_type: application/x-7z-compressed
+          files: TAS_${{ steps.date.outputs.date }}.7z
 
       - name: Delete old releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
