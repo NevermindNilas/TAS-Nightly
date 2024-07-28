@@ -53,14 +53,30 @@ jobs:
           cd TheAnimeScripter/dist/main/
           7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../../TAS_${{ steps.date.outputs.date }}.7z *
 
-      - name: Read CHANGELOG.md
-        id: changelog
-        run: |
-          $changelog = Get-Content TheAnimeScripter/CHANGELOG.MD -Raw
-          $changelog = $changelog -replace "`r`n","`n"
-          $changelog = $changelog -replace '"','\"'
-          echo "content=$changelog" >> $env:GITHUB_OUTPUT
-        shell: pwsh
+      - name: Get latest release tag
+        id: latest_release
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const latestRelease = await github.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            return latestRelease.data.tag_name;
+
+      - name: Get commits since last release
+        id: commit_messages
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const latestReleaseTag = steps.latest_release.outputs.result;
+            const commits = await github.repos.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              since: latestReleaseTag
+            });
+            const commitMessages = commits.data.map(commit => `- ${commit.commit.message}`).join('\n');
+            return commitMessages;
 
       - name: Create Release
         id: create_release
@@ -71,9 +87,9 @@ jobs:
           body: |
             This is a nightly build of TheAnimeScripter. It may contain bugs and is not recommended for production use.
 
-            Current CHANGELOG:
+            Commits since last release:
 
-            ${{ steps.changelog.outputs.content }}
+            ${{ steps.commit_messages.outputs.result }}
           draft: false
           prerelease: false
           files: TAS_${{ steps.date.outputs.date }}.7z
