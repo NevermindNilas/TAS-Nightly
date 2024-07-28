@@ -53,43 +53,12 @@ jobs:
           cd TheAnimeScripter/dist/main/
           7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../../TAS_${{ steps.date.outputs.date }}.7z *
 
-      - name: Get latest release tag
-        id: latest_release
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const latestRelease = await github.repos.getLatestRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-            return latestRelease.data.tag_name;
-
-      - name: Get commits since last release
-        id: commit_messages
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const latestReleaseTag = steps.latest_release.outputs.result;
-            const commits = await github.repos.listCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              since: latestReleaseTag
-            });
-            const commitMessages = commits.data.map(commit => `- ${commit.commit.message}`).join('\n');
-            return commitMessages;
-
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: TAS_${{ steps.date.outputs.date }}
           name: TAS_${{ steps.date.outputs.date }}
-          body: |
-            This is a nightly build of TheAnimeScripter. It may contain bugs and is not recommended for production use.
-
-            Commits since last release:
-
-            ${{ steps.commit_messages.outputs.result }}
           draft: false
           prerelease: false
           files: TAS_${{ steps.date.outputs.date }}.7z
