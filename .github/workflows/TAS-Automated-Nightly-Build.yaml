@@ -25,10 +25,14 @@ jobs:
         with:
           python-version: "3.11.9"
 
+      - name: Update pip
+        run: python -m pip install --upgrade pip
+
       - name: Pip Install Requirements-Dev
         run: |
           cd TheAnimeScripter
-          python -m pip install -r requirements-dev-windows.txt
+          python -m pip install --no-deps -r requirements-dev-windows.txt
+          python -m pip install -r requirements-dev-windows.txt --no-cache-dir
 
       - name: Sanity Check - List pip modules
         run: python -m pip list
@@ -40,7 +44,7 @@ jobs:
 
       - name: Get the date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y%m%d')"
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
 
       - name: Compress main directory
         run: |
@@ -53,7 +57,7 @@ jobs:
           $changelog = Get-Content TheAnimeScripter/CHANGELOG.MD -Raw
           $changelog = $changelog -replace "`r`n","\n"
           $changelog = $changelog -replace '"','\"'
-          echo "::set-output name=content::$changelog"
+          echo "content=$changelog" >> $env:GITHUB_OUTPUT
         shell: pwsh
 
       - name: Create Release
