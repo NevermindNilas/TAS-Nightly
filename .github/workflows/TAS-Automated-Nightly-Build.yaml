@@ -2,7 +2,7 @@ name: TAS-Nightly-Build-Windows
 
 on:
   schedule:
-    - cron: '0 */20 * * *'
+    - cron: '0 */24 * * *'
   workflow_dispatch:
 
 jobs:
@@ -45,7 +45,7 @@ jobs:
       - name: Run build script
         run: |
           cd TheAnimeScripter
-          python build.py --venv
+          python build.py
 
       - name: Compress main directory
         run: |
