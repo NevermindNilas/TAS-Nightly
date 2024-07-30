@@ -13,6 +13,7 @@ jobs:
 
     steps:
       - name: Clone TheAnimeScripter repository
+        uses: actions/checkout@v4
         with:
           repository: NevermindNilas/TheAnimeScripter
           path: TheAnimeScripter
@@ -42,22 +43,22 @@ jobs:
 
       - name: Get the date
         id: date
-        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
+        run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_ENV
 
       - name: Compress main directory
         run: |
           cd TheAnimeScripter/dist/main/
-          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../../TAS_${{ steps.date.outputs.date }}.7z *
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../../TAS_${{ env.date }}.7z *
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: TAS_${{ steps.date.outputs.date }}
-          name: TAS_${{ steps.date.outputs.date }}
+          tag_name: TAS_${{ env.date }}
+          name: TAS_${{ env.date }}
           draft: false
           prerelease: false
-          files: TAS_${{ steps.date.outputs.date }}.7z
+          files: TAS_${{ env.date }}.7z
 
       - name: Delete old releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
