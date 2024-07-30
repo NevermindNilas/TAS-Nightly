@@ -1,4 +1,4 @@
-name: TAS-Nightly-Build-Windows
+name: Test Get Date
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
         with:
           format: "YYYY年MM月DD日 HH:mm:ss.SSS"
           timezone-offset: -480
-          
+
       - name: Output2
         run: |
           echo "The time was ${{ steps.t2.outputs.time }}"
