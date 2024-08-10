@@ -50,7 +50,7 @@ jobs:
       - name: Run lite build script
         run: |
           cd TheAnimeScripter
-          python build-lite.py
+          python build-lite.py --output dist-lite
 
       - name: Compress main directory
         run: |
