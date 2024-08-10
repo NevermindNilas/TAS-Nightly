@@ -47,10 +47,20 @@ jobs:
           cd TheAnimeScripter
           python build.py
 
+      - name: Run lite build script
+        run: |
+          cd TheAnimeScripter
+          python build-lite.py
+
       - name: Compress main directory
         run: |
           cd TheAnimeScripter/dist/main/
           7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../../TAS_${{ steps.date.outputs.time }}.7z *
+
+      - name: Compress lite directory
+        run: |
+          cd TheAnimeScripter/dist-lite/main/
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../../TAS_Lite_${{ steps.date.outputs.time }}.7z *
 
       - name: Create Release
         id: create_release
@@ -60,7 +70,9 @@ jobs:
           name: TAS_${{ steps.date.outputs.time }}
           draft: false
           prerelease: false
-          files: TAS_${{ steps.date.outputs.time }}.7z
+          files: |
+            TAS_${{ steps.date.outputs.time }}.7z
+            TAS_Lite_${{ steps.date.outputs.time }}.7z
 
       - name: Delete old releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
