@@ -2,7 +2,7 @@ name: TAS-Nightly-Build-Windows
 
 on:
   schedule:
-    - cron: '0 */24 * * *'
+    - cron: '0 */12 * * *'
   workflow_dispatch:
 
 jobs:
