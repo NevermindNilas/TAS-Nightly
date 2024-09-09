@@ -17,6 +17,13 @@ jobs:
         with:
           python-version: "3.12.4"
 
+      - name: Clone TheAnimeScripter repository
+        uses: actions/checkout@v4
+        with:
+          repository: NevermindNilas/TheAnimeScripter
+          path: TheAnimeScripter
+          submodules: recursive
+
       - name: Extract version
         id: get_version
         run: |
