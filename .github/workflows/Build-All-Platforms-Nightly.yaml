@@ -41,7 +41,8 @@ jobs:
         with:
           tag_name: TAS_${{ steps.get_version.outputs.version }}
           release_name: TAS_${{ steps.get_version.outputs.version }}
-          draft: true
+          draft: false
+          prerelease: false
 
   Build_Full_Windows:
     needs: setup
@@ -67,7 +68,7 @@ jobs:
       - name: Compress full directory
         run: |
           cd TheAnimeScripter/dist-full/main/
-          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.version }}_Full_Windows.7z *
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.time }}_Full_Windows.7z *
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -75,8 +76,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TAS }}
         with:
           upload_url: ${{ needs.setup.outputs.upload_url }}
-          asset_path: TheAnimeScripter/TAS_${{ needs.setup.outputs.version }}_Full_Windows.7z
-          asset_name: TAS_${{ needs.setup.outputs.version }}_Full_Windows.7z
+          asset_path: TheAnimeScripter/TAS_${{ needs.setup.outputs.time }}_Full_Windows.7z
+          asset_name: TAS_${{ needs.setup.outputs.time }}_Full_Windows.7z
           asset_content_type: application/x-7z-compressed
 
   Build_Lite_Windows:
@@ -103,7 +104,7 @@ jobs:
       - name: Compress lite directory
         run: |
           cd TheAnimeScripter/dist-lite/main/
-          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.version }}_Lite_Windows.7z *
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.time }}_Lite_Windows.7z *
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -111,8 +112,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TAS }}
         with:
           upload_url: ${{ needs.setup.outputs.upload_url }}
-          asset_path: TheAnimeScripter/TAS_${{ needs.setup.outputs.version }}_Lite_Windows.7z
-          asset_name: TAS_${{ needs.setup.outputs.version }}_Lite_Windows.7z
+          asset_path: TheAnimeScripter/TAS_${{ needs.setup.outputs.time }}_Lite_Windows.7z
+          asset_name: TAS_${{ needs.setup.outputs.time }}_Lite_Windows.7z
           asset_content_type: application/x-7z-compressed
 
   Build_Lite_Linux:
@@ -139,7 +140,7 @@ jobs:
       - name: Compress lite directory
         run: |
           cd TheAnimeScripter/dist-lite/main/
-          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.version }}_Lite_Linux.7z *
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.time }}_Lite_Linux.7z *
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -147,8 +148,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TAS }}
         with:
           upload_url: ${{ needs.setup.outputs.upload_url }}
-          asset_path: TheAnimeScripter/TAS_${{ needs.setup.outputs.version }}_Lite_Linux.7z
-          asset_name: TAS_${{ needs.setup.outputs.version }}_Lite_Linux.7z
+          asset_path: TheAnimeScripter/TAS_${{ needs.setup.outputs.time }}_Lite_Linux.7z
+          asset_name: TAS_${{ needs.setup.outputs.time }}_Lite_Linux.7z
           asset_content_type: application/x-7z-compressed
 
   delete_old_releases:
