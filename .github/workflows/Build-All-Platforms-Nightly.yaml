@@ -12,21 +12,6 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
       version: ${{ steps.get_version.outputs.version }}
     steps:
-      - name: Clone TheAnimeScripter repository
-        uses: actions/checkout@v4
-        with:
-          repository: NevermindNilas/TheAnimeScripter
-          path: TheAnimeScripter
-          submodules: recursive
-
-      - name: Cache TheAnimeScripter repository
-        uses: actions/cache@v3
-        with:
-          path: TheAnimeScripter
-          key: ${{ runner.os }}-TheAnimeScripter-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-TheAnimeScripter-
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -55,11 +40,12 @@ jobs:
     needs: setup
     runs-on: windows-latest
     steps:
-      - name: Restore TheAnimeScripter repository
-        uses: actions/cache@v3
+      - name: Clone TheAnimeScripter repository
+        uses: actions/checkout@v4
         with:
+          repository: NevermindNilas/TheAnimeScripter
           path: TheAnimeScripter
-          key: ${{ runner.os }}-TheAnimeScripter-${{ github.sha }}
+          submodules: recursive
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -90,11 +76,12 @@ jobs:
     needs: setup
     runs-on: windows-latest
     steps:
-      - name: Restore TheAnimeScripter repository
-        uses: actions/cache@v3
+      - name: Clone TheAnimeScripter repository
+        uses: actions/checkout@v4
         with:
+          repository: NevermindNilas/TheAnimeScripter
           path: TheAnimeScripter
-          key: ${{ runner.os }}-TheAnimeScripter-${{ github.sha }}
+          submodules: recursive
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -125,11 +112,12 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - name: Restore TheAnimeScripter repository
-        uses: actions/cache@v3
+      - name: Clone TheAnimeScripter repository
+        uses: actions/checkout@v4
         with:
+          repository: NevermindNilas/TheAnimeScripter
           path: TheAnimeScripter
-          key: ${{ runner.os }}-TheAnimeScripter-${{ github.sha }}
+          submodules: recursive
 
       - name: Set up Python
         uses: actions/setup-python@v2
