@@ -1,7 +1,5 @@
 name: Build-All-Platforms-Nightly
 
-# OLD METHOD: 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=3072m -ms=on ../../TAS_${{ needs.setup.outputs.date }}_Full_Linux.7z *
-
 on:
   schedule:
     - cron: '0 */6 * * *'
@@ -77,7 +75,7 @@ jobs:
       - name: Compress full directory
         run: |
           cd TheAnimeScripter/dist-full/main/
-          7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=3072m -ms=on ../../TAS_${{ needs.setup.outputs.date }}_Full_Windows.7z *
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.date }}_Full_Windows.7z *
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -113,7 +111,7 @@ jobs:
       - name: Compress lite directory
         run: |
           cd TheAnimeScripter/dist-lite/main/
-          7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=3072m -ms=on ../../TAS_${{ needs.setup.outputs.date }}_Lite_Windows.7z *
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.date }}_Lite_Windows.7z *
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -149,7 +147,7 @@ jobs:
       - name: Compress lite directory
         run: |
           cd TheAnimeScripter/dist-lite/main/
-          7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=3072m -ms=on ../../TAS_${{ needs.setup.outputs.date }}_Lite_Linux.7z *
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.date }}_Lite_Linux.7z *
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
@@ -196,7 +194,7 @@ jobs:
       - name: Compress full directory
         run: |
           cd TheAnimeScripter/dist-full/main/
-          7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=3072m -ms=on ../../TAS_${{ needs.setup.outputs.date }}_Full_Linux.7z *
+          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=273m ../../TAS_${{ needs.setup.outputs.date }}_Full_Linux.7z *
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
