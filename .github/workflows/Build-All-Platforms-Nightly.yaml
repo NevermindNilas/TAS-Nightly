@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12.9"
+          python-version: "3.13.2"
 
       - name: Clone TheAnimeScripter repository
         uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12.9"
+          python-version: "3.13.2"
 
       - name: Run full build script
         run: |
@@ -101,7 +101,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12.9"
+          python-version: "3.13.2"
 
       - name: Run lite build script
         run: |
@@ -137,7 +137,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12.9"
+          python-version: "3.13.2"
 
       - name: Run lite build script
         run: |
