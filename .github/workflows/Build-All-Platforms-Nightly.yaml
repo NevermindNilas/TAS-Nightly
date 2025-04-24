@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13.2"
+          python-version: "3.13.3"
 
       - name: Clone TheAnimeScripter repository
         uses: actions/checkout@v4
@@ -65,7 +65,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13.2"
+          python-version: "3.13.3"
 
       - name: Run full build script
         run: |
@@ -123,41 +123,41 @@ jobs:
           asset_name: TAS_${{ needs.setup.outputs.date }}_Lite_Windows.7z
           asset_content_type: application/x-7z-compressed
 
-  Build_Lite_Linux:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone TheAnimeScripter repository
-        uses: actions/checkout@v4
-        with:
-          repository: NevermindNilas/TheAnimeScripter
-          path: TheAnimeScripter
-          submodules: recursive
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13.2"
-
-      - name: Run lite build script
-        run: |
-          cd TheAnimeScripter
-          python build-linux-lite.py
-
-      - name: Compress lite directory
-        run: |
-          cd TheAnimeScripter/dist-lite/main/
-          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=1024m ../../TAS_${{ needs.setup.outputs.date }}_Lite_Linux.7z *
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TAS }}
-        with:
-          upload_url: ${{ needs.setup.outputs.upload_url }}
-          asset_path: TheAnimeScripter/TAS_${{ needs.setup.outputs.date }}_Lite_Linux.7z
-          asset_name: TAS_${{ needs.setup.outputs.date }}_Lite_Linux.7z
-          asset_content_type: application/x-7z-compressed
+#  Build_Lite_Linux:
+#    needs: setup
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Clone TheAnimeScripter repository
+#        uses: actions/checkout@v4
+#        with:
+#          repository: NevermindNilas/TheAnimeScripter
+#          path: TheAnimeScripter
+#          submodules: recursive
+#
+#      - name: Set up Python
+#        uses: actions/setup-python@v5
+#        with:
+#          python-version: "3.13.3"
+#
+#      - name: Run lite build script
+#        run: |
+#          cd TheAnimeScripter
+#          python build-linux-lite.py
+#
+#      - name: Compress lite directory
+#        run: |
+#          cd TheAnimeScripter/dist-lite/main/
+#          7z a -t7z -m0=lzma2 -mx=9 -ms=1536m -md=1024m ../../TAS_${{ needs.setup.outputs.date }}_Lite_Linux.7z *
+#
+  #    - name: Upload Release Asset
+  #      uses: actions/upload-release-asset@v1
+  #      env:
+  #        GITHUB_TOKEN: ${{ secrets.TAS }}
+  #      with:
+  #        upload_url: ${{ needs.setup.outputs.upload_url }}
+  #        asset_path: TheAnimeScripter/TAS_${{ needs.setup.outputs.date }}_Lite_Linux.7z
+  #        asset_name: TAS_${{ needs.setup.outputs.date }}_Lite_Linux.7z
+  #        asset_content_type: application/x-7z-compressed
 
   # Build_Full_Linux:
   #   needs: setup
