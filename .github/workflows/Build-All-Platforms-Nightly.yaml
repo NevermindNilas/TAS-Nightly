@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TAS }}
         with:
           tag_name: TAS_${{ steps.date.outputs.time }}
-          name: TAS_${{ steps.date.outputs.time }}
+          release_name: TAS_${{ steps.date.outputs.time }}
           draft: false
           prerelease: false
 
@@ -209,7 +209,7 @@ jobs:
   delete_old_releases:
     needs:
       - Build_Lite_Windows
-      - Build_Lite_Linux
+      #- Build_Lite_Linux
       - Build_Full_Windows
       #- Build_Full_Linux
     runs-on: ubuntu-latest
